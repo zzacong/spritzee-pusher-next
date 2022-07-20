@@ -14,7 +14,22 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "noUncheckedIndexedAccess": true
+    "noUncheckedIndexedAccess": true,
+    "baseUrl": "./src",
+    "paths": {
+      "$components": ["components"],
+      "$components/*": ["components/*"],
+      "$lib": ["lib"],
+      "$lib/*": ["lib/*"],
+      "$pages": ["pages"],
+      "$pages/*": ["pages/*"],
+      "$public": ["../public"],
+      "$public/*": ["../public/*"],
+      "$server": ["server"],
+      "$server/*": ["server/*"],
+      "$styles": ["styles"],
+      "$styles/*": ["styles/*"]
+    }
   },
   "include": [
     "next-env.d.ts",

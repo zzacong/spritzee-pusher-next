@@ -6,12 +6,22 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql" // NOTE: sqlite does not work with NextAuth.js
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model Example {
-  id String @id @default(cuid())
+enum QuestionStatus {
+  PENDING
+  ANSWERED
+}
+
+model Question {
+  id        String         @id @default(cuid())
+  body      String         @db.Text
+  userId    String
+  user      User           @relation(fields: [userId], references: [id])
+  status    QuestionStatus @default(PENDING)
+  createdAt DateTime       @default(now())
 }
 
 // Necessary for Next auth
@@ -42,13 +52,14 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?    @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
+  Question      Question[]
 }
 
 model VerificationToken {

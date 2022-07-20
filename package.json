@@ -9,7 +9,8 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "ci-check": "run-p lint typecheck",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "migrate":"prisma migrate dev"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.3",

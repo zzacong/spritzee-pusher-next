@@ -98,7 +98,7 @@ const QuestionsView = () => {
                   </button>
                 )}
                 <button
-                  title="Remove question"
+                  title="Archive question"
                   onClick={() => removeQuestion({ questionId: q.id })}
                 >
                   <FaArchive size={24} />

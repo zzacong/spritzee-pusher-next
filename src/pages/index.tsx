@@ -2,10 +2,43 @@ import type { GetServerSidePropsContext } from 'next'
 import type { inferAsyncReturnType } from '@trpc/server'
 
 import Image from 'next/future/image'
-import { FaGithub } from 'react-icons/fa'
-import { getProviders, signIn, useSession } from 'next-auth/react'
+import dynamic from 'next/dynamic'
+import { FaGithub, FaCopy, FaSignOutAlt } from 'react-icons/fa'
+import { getProviders, signIn, signOut, useSession } from 'next-auth/react'
+import copy from 'copy-to-clipboard'
 
 import { getServerSession } from '$server/helpers/get-server-session'
+
+const LazyQuestionsView = dynamic(() => import('$components/QuestionsView'), {
+  ssr: false,
+})
+
+const NavButtons = ({ userId }: { userId: string }) => {
+  const { data: sesh } = useSession()
+
+  return (
+    <div className="flex gap-4">
+      <button
+        onClick={() => copy(`/embed/${userId}`)}
+        className="flex items-center gap-2 rounded bg-gray-200 py-2 px-4 text-sm font-bold text-gray-800 hover:bg-gray-100"
+      >
+        Copy embed url <FaCopy size={16} />
+      </button>
+      <button
+        onClick={() => copy(`/ask/${sesh?.user?.name?.toLowerCase()}`)}
+        className="flex items-center gap-2 rounded bg-gray-200 py-2 px-4 text-sm font-bold text-gray-800 hover:bg-gray-100"
+      >
+        Copy Q&A url <FaCopy size={16} />
+      </button>
+      <button
+        onClick={() => signOut()}
+        className="flex items-center gap-2 rounded bg-gray-200 py-2 px-4 text-sm font-bold text-gray-800 hover:bg-gray-100"
+      >
+        Logout <FaSignOutAlt size={16} />
+      </button>
+    </div>
+  )
+}
 
 const HomeContents = ({ providers }: Pick<HomePageProps, 'providers'>) => {
   const { data } = useSession()
@@ -43,9 +76,9 @@ const HomeContents = ({ providers }: Pick<HomePageProps, 'providers'>) => {
           )}
           {data.user?.name}
         </h1>
-        {/* <NavButtons userId={data.user?.id!} /> */}
+        <NavButtons userId={data.user?.uid!} />
       </div>
-      {/* <LazyQuestionsView /> */}
+      <LazyQuestionsView />
     </main>
   )
 }

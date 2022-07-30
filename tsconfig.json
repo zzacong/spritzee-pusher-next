@@ -17,6 +17,8 @@
     "noUncheckedIndexedAccess": true,
     "baseUrl": "./src",
     "paths": {
+      "$assets": ["assets"],
+      "$assets/*": ["assets/*"],
       "$components": ["components"],
       "$components/*": ["components/*"],
       "$lib": ["lib"],

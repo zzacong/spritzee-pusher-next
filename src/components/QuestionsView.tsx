@@ -53,7 +53,13 @@ const QuestionsView = () => {
   if (isLoading)
     return (
       <div className="animate-fade-in-delay flex justify-center p-8">
-        <Image src={LoadingSVG} alt="loading..." width={200} height={200} />
+        <Image
+          src={LoadingSVG}
+          alt="loading..."
+          width={200}
+          height={200}
+          priority
+        />
       </div>
     )
 

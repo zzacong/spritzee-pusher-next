@@ -22,7 +22,6 @@
     "@trpc/server": "^9.26.2",
     "copy-to-clipboard": "^3.3.1",
     "date-fns": "^2.29.1",
-    "jotai": "^1.7.6",
     "next": "12.2.1",
     "next-auth": "^4.10.2",
     "pusher": "^5.1.1-beta",

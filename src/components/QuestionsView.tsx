@@ -1,7 +1,8 @@
 import type { PropsWithChildren } from 'react'
 
 import Image from 'next/future/image'
-import { FaEyeSlash, FaEye, FaArchive } from 'react-icons/fa'
+import { FaArchive } from 'react-icons/fa'
+import { BsPinAngle, BsPinAngleFill } from 'react-icons/bs'
 import { useSession } from 'next-auth/react'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { formatDistanceToNow } from 'date-fns'
@@ -81,16 +82,25 @@ const QuestionsView = () => {
               {formatDistanceToNow(q.createdAt, { addSuffix: true })}
               <div className="flex gap-4">
                 {pinnedId === q.id && (
-                  <button onClick={() => unpinQuestion()}>
-                    <FaEyeSlash size={24} />
+                  <button
+                    title="Unpin question"
+                    onClick={() => unpinQuestion()}
+                  >
+                    <BsPinAngleFill size={24} />
                   </button>
                 )}
                 {pinnedId !== q.id && (
-                  <button onClick={() => pinQuestion({ questionId: q.id })}>
-                    <FaEye size={24} />
+                  <button
+                    title="Pin question"
+                    onClick={() => pinQuestion({ questionId: q.id })}
+                  >
+                    <BsPinAngle size={24} />
                   </button>
                 )}
-                <button onClick={() => removeQuestion({ questionId: q.id })}>
+                <button
+                  title="Remove question"
+                  onClick={() => removeQuestion({ questionId: q.id })}
+                >
                   <FaArchive size={24} />
                 </button>
               </div>

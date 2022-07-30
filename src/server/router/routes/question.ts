@@ -77,7 +77,6 @@ export const questionRouter = createRouter()
   })
   .mutation('archive', {
     input: z.object({ questionId: z.string() }),
-
     resolve: async ({ ctx, input }) => {
       return await ctx.prisma.question.updateMany({
         where: { id: input.questionId, userId: ctx.session.user.uid },

@@ -42,7 +42,7 @@ const QuestionsView = () => {
     onMutate: ({ questionId }) => {
       // Optimistic update
       tctx.queryClient.setQueryData(
-        ['questions.getAll', null],
+        ['questions.getAll'],
         data?.filter(q => q.id !== questionId)
       )
 

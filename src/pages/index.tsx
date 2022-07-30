@@ -19,13 +19,17 @@ const NavButtons = ({ userId }: { userId: string }) => {
   return (
     <div className="flex gap-4">
       <button
-        onClick={() => copy(`/embed/${userId}`)}
+        onClick={() => copy(`${window.location.origin}/embed/${userId}`)}
         className="flex items-center gap-2 rounded bg-gray-200 py-2 px-4 text-sm font-bold text-gray-800 hover:bg-gray-100"
       >
         Copy embed url <FaCopy size={16} />
       </button>
       <button
-        onClick={() => copy(`/ask/${sesh?.user?.name?.toLowerCase()}`)}
+        onClick={() =>
+          copy(
+            `${window.location.origin}/ask/${sesh?.user?.name?.toLowerCase()}`
+          )
+        }
         className="flex items-center gap-2 rounded bg-gray-200 py-2 px-4 text-sm font-bold text-gray-800 hover:bg-gray-100"
       >
         Copy Q&A url <FaCopy size={16} />

@@ -62,10 +62,10 @@ const HomeContents = ({ providers }: Pick<HomePageProps, 'providers'>) => {
             <button
               key={provider.name}
               onClick={() => signIn(provider.id)}
-              className="flex items-center gap-4 rounded bg-gray-200 px-6 py-2 text-xl text-black"
+              className="flex items-center gap-4 rounded bg-gray-200 px-6 py-2 text-black"
             >
-              {provider.id === 'github' && <FaGithub />}
-              <span>Continue with {provider.name}</span>
+              {provider.id === 'github' && <FaGithub size={24} />}
+              <span className="text-xl">Continue with {provider.name}</span>
             </button>
           ))}
       </main>
@@ -106,6 +106,7 @@ export default function HomePage({ providers }: HomePageProps) {
           Quickly created by{' '}
           <a
             href="https://github.com/zzacong"
+            target="_blank"
             rel="noopener noreferrer"
             className="text-blue-100"
           >
@@ -116,6 +117,7 @@ export default function HomePage({ providers }: HomePageProps) {
             <a
               href="https://github.com/theobr/zapdos"
               className="text-blue-100"
+              target="_blank"
               rel="noopener noreferrer"
             >
               Theo&apos;s repo
@@ -127,6 +129,7 @@ export default function HomePage({ providers }: HomePageProps) {
         <a
           href="https://github.com/zzacong/spritzee-pusher-nextjs"
           title="GitHub repository"
+          target="_blank"
           rel="noopener noreferrer"
         >
           <span className="sr-only">GitHub</span>

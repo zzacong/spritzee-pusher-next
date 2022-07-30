@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 import dynamic from 'next/dynamic'
 
 import { PusherProvider, useSubscribeToEvent } from '$lib/pusher'
@@ -17,14 +18,15 @@ const useLatestPusherMessage = () => {
 
 const BrowserEmbedViewCore = () => {
   const latestMessage = useLatestPusherMessage()
-
-  if (!latestMessage) return null
+  const [parent] = useAutoAnimate<HTMLDivElement>()
 
   return (
-    <div className="flex h-screen items-center justify-center p-8">
-      <div className="w-full max-w-4xl rounded border-2 bg-gray-900/70 p-8 text-center text-2xl text-white shadow">
-        {latestMessage}
-      </div>
+    <div ref={parent} className="flex h-screen items-center justify-center p-8">
+      {latestMessage && (
+        <div className="w-full max-w-4xl rounded border-2 bg-gray-900/70 p-8 text-center text-2xl text-white shadow">
+          {latestMessage}
+        </div>
+      )}
     </div>
   )
 }

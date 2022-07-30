@@ -12,6 +12,12 @@ import { getServerSession } from '$server/helpers/get-server-session'
 const LazyQuestionsView = dynamic(() => import('$components/QuestionsView'), {
   ssr: false,
 })
+const LazyConnectedCounter = dynamic(
+  () => import('$components/ConnectedCounter'),
+  {
+    ssr: false,
+  }
+)
 
 const NavButtons = ({ userId }: { userId: string }) => {
   const { data: sesh } = useSession()
@@ -67,19 +73,22 @@ const HomeContents = ({ providers }: Pick<HomePageProps, 'providers'>) => {
 
   return (
     <main className="flex flex-col">
-      <div className="flex items-center justify-between bg-gray-800 py-4 px-8 shadow">
-        <h1 className="flex items-center gap-4 text-2xl font-bold">
-          {data.user?.image && (
-            <Image
-              src={data.user.image}
-              alt="pro pic"
-              width={48}
-              height={48}
-              className="rounded-full"
-            />
-          )}
-          {data.user?.name}
-        </h1>
+      <div className="flex flex-wrap items-center justify-between gap-4 bg-gray-800 py-4 px-8 shadow">
+        <div className="flex items-center gap-8">
+          <h1 className="flex items-center gap-4 text-2xl font-bold">
+            {data.user?.image && (
+              <Image
+                src={data.user.image}
+                alt="pro pic"
+                width={48}
+                height={48}
+                className="rounded-full"
+              />
+            )}
+            {data.user?.name}
+          </h1>
+          <LazyConnectedCounter />
+        </div>
         <NavButtons userId={data.user?.uid!} />
       </div>
       <LazyQuestionsView />

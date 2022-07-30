@@ -8,11 +8,7 @@ import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { formatDistanceToNow } from 'date-fns'
 
 import { trpc } from '$lib/trpc'
-import {
-  PusherProvider,
-  useCurrentMemberCount,
-  useSubscribeToEvent,
-} from '$lib/pusher'
+import { PusherProvider, useSubscribeToEvent } from '$lib/pusher'
 import LoadingSVG from '$assets/puff.svg'
 
 const QuestionsView = () => {
@@ -20,8 +16,6 @@ const QuestionsView = () => {
 
   // Refetch when new questions come through
   useSubscribeToEvent('new-question', () => refetch())
-
-  const connectionCount = useCurrentMemberCount() - 1
 
   // Question pinning mutation
   const {
@@ -65,51 +59,40 @@ const QuestionsView = () => {
     )
 
   return (
-    <>
-      <div>
-        {connectionCount > 0 && (
-          <span>Currently connected: {connectionCount}</span>
-        )}
-      </div>
-
-      <AnimatedQuestionsWrapper className="flex flex-wrap justify-center gap-4 p-8">
-        {data?.map(q => (
-          <div
-            key={q.id}
-            className="animate-fade-in-down flex h-52 w-96 flex-col rounded border border-gray-500 bg-gray-600 shadow-xl"
-          >
-            <div className="flex justify-between border-b border-gray-500 p-4">
-              {formatDistanceToNow(q.createdAt, { addSuffix: true })}
-              <div className="flex gap-4">
-                {pinnedId === q.id && (
-                  <button
-                    title="Unpin question"
-                    onClick={() => unpinQuestion()}
-                  >
-                    <BsPinAngleFill size={24} />
-                  </button>
-                )}
-                {pinnedId !== q.id && (
-                  <button
-                    title="Pin question"
-                    onClick={() => pinQuestion({ questionId: q.id })}
-                  >
-                    <BsPinAngle size={24} />
-                  </button>
-                )}
-                <button
-                  title="Archive question"
-                  onClick={() => removeQuestion({ questionId: q.id })}
-                >
-                  <FaArchive size={24} />
+    <AnimatedQuestionsWrapper className="flex flex-wrap justify-center gap-4 p-8">
+      {data?.map(q => (
+        <div
+          key={q.id}
+          className="animate-fade-in-down flex h-52 w-96 flex-col rounded border border-gray-500 bg-gray-600 shadow-xl"
+        >
+          <div className="flex justify-between border-b border-gray-500 p-4">
+            {formatDistanceToNow(q.createdAt, { addSuffix: true })}
+            <div className="flex gap-4">
+              {pinnedId === q.id && (
+                <button title="Unpin question" onClick={() => unpinQuestion()}>
+                  <BsPinAngleFill size={24} />
                 </button>
-              </div>
+              )}
+              {pinnedId !== q.id && (
+                <button
+                  title="Pin question"
+                  onClick={() => pinQuestion({ questionId: q.id })}
+                >
+                  <BsPinAngle size={24} />
+                </button>
+              )}
+              <button
+                title="Archive question"
+                onClick={() => removeQuestion({ questionId: q.id })}
+              >
+                <FaArchive size={24} />
+              </button>
             </div>
-            <div className="p-4">{q.body}</div>
           </div>
-        ))}
-      </AnimatedQuestionsWrapper>
-    </>
+          <div className="p-4">{q.body}</div>
+        </div>
+      ))}
+    </AnimatedQuestionsWrapper>
   )
 }
 

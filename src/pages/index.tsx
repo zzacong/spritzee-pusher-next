@@ -58,7 +58,11 @@ export default function HomePage({ providers }: HomePageProps) {
       <div className="flex justify-between bg-black/40 py-4 px-8 font-mono">
         <span>
           Quickly created by{' '}
-          <a href="https://github.com/zzacong" className="text-blue-100">
+          <a
+            href="https://github.com/zzacong"
+            rel="noopener noreferrer"
+            className="text-blue-100"
+          >
             Zac
           </a>{' '}
           <span className="text-sm">
@@ -66,6 +70,7 @@ export default function HomePage({ providers }: HomePageProps) {
             <a
               href="https://github.com/theobr/zapdos"
               className="text-blue-100"
+              rel="noopener noreferrer"
             >
               Theo&apos;s repo
             </a>
@@ -76,6 +81,7 @@ export default function HomePage({ providers }: HomePageProps) {
         <a
           href="https://github.com/zzacong/spritzee-pusher-nextjs"
           title="GitHub repository"
+          rel="noopener noreferrer"
         >
           <span className="sr-only">GitHub</span>
           <FaGithub size={24} />

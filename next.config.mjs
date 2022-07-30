@@ -15,4 +15,8 @@ function defineNextConfig(config) {
 export default defineNextConfig({
   reactStrictMode: true,
   swcMinify: true,
+  env: {
+    PUSHER_KEY: env.PUSHER_KEY,
+    PUSHER_CLUSTER: env.PUSHER_CLUSTER,
+  },
 })

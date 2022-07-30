@@ -43,7 +43,7 @@ export const questionRouter = createRouter()
     resolve: async ({ ctx }) => {
       const questions = await ctx.prisma.question.findMany({
         where: {
-          userId: ctx.session.user.id,
+          userId: ctx.session.user.uid,
           status: 'PENDING',
         },
         orderBy: { id: 'desc' },
@@ -58,7 +58,7 @@ export const questionRouter = createRouter()
       const question = await ctx.prisma.question.findFirst({
         where: { id: input.questionId },
       })
-      if (!question || question.userId !== ctx.session.user.id) {
+      if (!question || question.userId !== ctx.session.user.uid) {
         throw new TRPCError({
           message: 'NOT YOUR QUESTION',
           code: 'UNAUTHORIZED',
@@ -80,7 +80,7 @@ export const questionRouter = createRouter()
 
     resolve: async ({ ctx, input }) => {
       return await ctx.prisma.question.updateMany({
-        where: { id: input.questionId, userId: ctx.session.user.id },
+        where: { id: input.questionId, userId: ctx.session.user.uid },
         data: {
           status: 'ANSWERED',
         },
@@ -90,7 +90,7 @@ export const questionRouter = createRouter()
   .mutation('unpin', {
     resolve: async ({ ctx }) => {
       await pusherServerClient.trigger(
-        `user-${ctx.session.user?.id}`,
+        `user-${ctx.session.user?.uid}`,
         'question-unpinned',
         {}
       )

@@ -1,8 +1,10 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { pusherServerClient } from '$server/helpers/pusher'
+import { type NextApiRequest, type NextApiResponse } from 'next'
+import { z } from 'zod'
+
+import { pusherServerClient } from '$server/pusher'
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { socket_id } = req.body
+  const { socket_id } = z.object({ socket_id: z.string() }).parse(req.body)
   const { user_id } = req.headers
 
   if (!user_id || typeof user_id !== 'string') {

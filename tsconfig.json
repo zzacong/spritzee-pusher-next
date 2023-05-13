@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
+    "checkJs": true,
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -15,30 +16,19 @@
     "jsx": "preserve",
     "incremental": true,
     "noUncheckedIndexedAccess": true,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "$assets": ["assets"],
-      "$assets/*": ["assets/*"],
-      "$components": ["components"],
-      "$components/*": ["components/*"],
-      "$lib": ["lib"],
-      "$lib/*": ["lib/*"],
-      "$pages": ["pages"],
-      "$pages/*": ["pages/*"],
-      "$public": ["../public"],
-      "$public/*": ["../public/*"],
-      "$server": ["server"],
-      "$server/*": ["server/*"],
-      "$styles": ["styles"],
-      "$styles/*": ["styles/*"]
+      "$public/*": ["./public/*"],
+      "$*": ["./src/*"]
     }
   },
   "include": [
+    ".eslintrc.cjs",
     "next-env.d.ts",
-    "next-auth.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.js"
+    "**/*.cjs",
+    "**/*.mjs"
   ],
   "exclude": ["node_modules"]
 }

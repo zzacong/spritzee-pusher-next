@@ -6,7 +6,7 @@ const ConnectedCounter = () => {
 
   if (connectionCount <= 0) return null
   return (
-    <span className="rounded bg-green-500 py-1 px-3 font-mono text-xs text-gray-900">
+    <span className="rounded bg-green-500 px-3 py-1 font-mono text-xs text-gray-900">
       <span className="font-bold">{connectionCount}</span> connected
     </span>
   )

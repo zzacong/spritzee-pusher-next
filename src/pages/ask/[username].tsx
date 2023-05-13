@@ -3,15 +3,15 @@ import type { GetStaticProps } from 'next'
 import type { User } from '@prisma/client'
 
 import Head from 'next/head'
-import Image from 'next/future/image'
+import Image from 'next/image'
 import { useState } from 'react'
 
-import { trpc } from '$lib/trpc'
-import { prisma } from '$server/db/client'
+import { prisma } from '$server/db'
+import { api } from '$lib/trpc'
 
 export default function AskForm(props: { user: User }) {
   if (!props.user) throw new Error('user exists Next, sorry')
-  const { mutate } = trpc.useMutation('questions.submit')
+  const { mutate } = api.question.submit.useMutation()
   const [question, setQuestion] = useState('')
 
   const handleSubmit: FormEventHandler = e => {
@@ -24,7 +24,7 @@ export default function AskForm(props: { user: User }) {
   return (
     <>
       <Head>
-        <title>{`Ask ${props.user?.name} a question!`}</title>
+        <title>{`Ask ${props.user.name ?? '<no name>'} a question!`}</title>
       </Head>
 
       <div className="flex flex-col items-center pt-28 text-center">
@@ -53,7 +53,7 @@ export default function AskForm(props: { user: User }) {
             />
             <button
               type="submit"
-              className="rounded bg-white py-2 px-4 text-center font-bold text-gray-800 hover:bg-gray-100"
+              className="rounded bg-white px-4 py-2 text-center font-bold text-gray-800 hover:bg-gray-100"
             >
               Submit
             </button>
@@ -95,5 +95,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 }
 
 export async function getStaticPaths() {
-  return { paths: [], fallback: 'blocking' }
+  return Promise.resolve({ paths: [], fallback: 'blocking' })
 }
